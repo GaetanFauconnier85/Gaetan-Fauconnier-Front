@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="css/home.css">
+{% endblock %}
+
+{% block body %}
+    <div class="oui">
+    <h1>{{ titre }}</h1>
+
+    {{form_start(form)}}
+    <br>
+    {{form_row(form.birthdate, { attr:{ class:'form-control', label_format:'Date de naissance' } })}}
+    {{form_row(form.email, { attr:{ class:'form-control' , placeholder:'Email'}}) }}
+    {{form_row(form.name, { attr:{ class:'form-control'  , placeholder:'Nom'} })}}
+    {{form_row(form.surname, { attr:{ class:'form-control'  , placeholder:'Prénom'} })}}
+    {{form_row(form.password, { attr:{ class:'form-control' , placeholder:'Mot de passe' } })}}
+    <br>
+    {{form_row(form.enregistrer, { attr:{ class:'btn btn-primary form-control' } } )}}
+    {{form_end(form)}}
+    </div>
+{% endblock %}

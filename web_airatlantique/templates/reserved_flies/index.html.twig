@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vos vols réservés{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="reservedFlies.css">
+    <link rel="stylesheet" href="css/home.css">
+{% endblock %}
+
+{% block body %}
+
+    {% if tickets is empty %}
+
+    <h2>Vous n'avez aucun voyage prévu</h2>
+
+    {% else %}
+
+        <div id="accordion">
+
+            <h2>Vos voyages</h2>
+
+            {% for ticket in tickets %}
+                    <br>
+                    <div class="card">
+                        <button class="list-group-item list-group-item-action" data-toggle="collapse" data-target="#collapse{{ ticket.getId() }}" aria-expanded="false" aria-controls="collapse{{ ticket.getId() }}">
+                            <div>
+                                <div id="price" style="float: right">
+                                    <div style="margin-top: 0%">
+                                        <label>Classe :</label>
+                                        <a>
+                                            {{ ticket.getType().getLibelle() }}
+                                        </a>
+                                    </div>
+                                </div>
+                                <i class="fas fa-plane-departure"> {{ ticket.getJourney().flies[0].getTripUsed().airportStart.getLibelle() }} </i>
+                                <i class="fas fa-arrow-right"></i>
+                                <i class="fas fa-plane-arrival"> {{ ticket.getJourney().flies[ticket.getJourney().flies | length - 1].getTripUsed().airportEnd.getLibelle() }} </i>
+                            </div>
+                            <div>
+                                {{ ticket.getJourney().flies[0].getHourStart() | date("d/m/Y") }}
+                                <i class="fas fa-arrow-right"></i>
+                                {{ ticket.getJourney().flies[ticket.getJourney().flies | length - 1].getHourEnd() | date("d/m/Y") }}
+                            </div>
+                        </button>
+
+                        <div id="collapse{{ ticket.getId() }}" class="collapse" aria-labelledby="heading{{ ticket.getId() }}" data-parent="#accordion">
+
+                            {% for fly in ticket.getJourney().flies %}
+
+                            <div class="card-body" style="background-color: #f4f4f4 ">
+                                <div>
+                                    <i class="fas fa-plane-departure"> {{ fly.getTripUsed().airportStart.getLibelle() }} </i>
+                                    <i class="fas fa-arrow-right"></i>
+                                    <i class="fas fa-plane-arrival"> {{ fly.getTripUsed().airportEnd.getLibelle() }} </i>
+                                </div>                                <div>
+                                    {{ fly.getHourStart() | date("d/m/Y H:i") }}
+                                    <i class="fas fa-arrow-right"></i>
+                                    {{ fly.getHourEnd() | date("d/m/Y H:i") }}
+                                </div>
+                            </div>
+
+                            {% endfor %}
+
+                        </div>
+                    </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% endif %}
+
+{% endblock %}

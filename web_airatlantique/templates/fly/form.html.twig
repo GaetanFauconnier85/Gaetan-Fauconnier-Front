@@ -1,0 +1,173 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% if not fly is null %}
+
+        <h1>Récapitulatif du billet</h1>
+
+        <button class="list-group-item list-group-item-action" data-toggle="collapse"  aria-expanded="false" >
+        <div class="card list-group-item list-group-item-action" style="border-width:1px; border-style:solid; border-color:black; padding: 1%; overflow: auto">
+            <i class="fas fa-plane-departure"> {{ fly[0].getTripUsed().airportStart.getLibelle() }} </i>
+            <i class="fas fa-arrow-right"></i>
+            <i class="fas fa-plane-arrival"> {{ fly[0].getTripUsed().airportEnd.getLibelle() }} </i>
+
+            <div id="price" style="float: right">
+                <div style="margin-top: 0%">
+                    <label>Premium :</label>
+                    <a>
+                        {% if fly[1] != 0  %}
+                            {{ fly[1] }}
+                        {% else %}
+                            Indisponible
+                        {% endif %}
+                    </a>
+                </div>
+                <div style="margin-top: 0%">
+                    <label>Buisness : </label>
+                    <a>
+                        {% if fly[2] != 0  %}
+                            {{ fly[2] }}
+                        {% else %}
+                            Indisponible
+                        {% endif %}
+                    </a>
+                </div>
+                <div style="margin-top: 0%">
+                    <label>Economique : </label>
+                    <a>
+                        {% if fly[3] != 0  %}
+                            {{ fly[3] }}
+                        {% else %}
+                            Indisponible
+                        {% endif %}
+                    </a>
+                </div>
+
+            </div>
+
+            <div>
+                {{ fly[0].getHourStart() | date("d/m/Y H:i") }}
+                <i class="fas fa-arrow-right"></i>
+                {{ fly[0].getHourEnd() | date("d/m/Y H:i") }}
+            </div>
+        </div>
+
+        <div style="margin-top: 1%">
+            {{ form_start(formulaire) }}
+            {{ form_row(formulaire.type) }}
+            {{ form_widget(formulaire) }}
+            {{ form_end(formulaire) }}
+        </div>
+        </button>
+
+    {% else %}
+
+        <h1>Récapitulatif du billet</h1>
+        <br>
+
+        <div class="card list-group-item "  style="border-width:1px; border-style:solid; border-color:black; padding: 1%; overflow: auto">
+
+        <i class="fas fa-plane-departure"> {{ flies[0][0].getTripUsed().airportStart.getLibelle() }} </i>
+        <i class="fas fa-arrow-right"></i>
+        <i class="fas fa-plane-arrival"> {{ flies[1][0].getTripUsed().airportEnd.getLibelle() }} </i>
+
+        <div id="price" style="float: right; ">
+            <div style="margin-top: 0%">
+                <label>Prix total Premium :</label>
+                <a>
+                    {% if flies[0][1] != 0  %}
+                        {{ flies[0][1]+flies[1][1] }} €
+                    {% else %}
+                        Indisponible
+                    {% endif %}
+                </a>
+            </div>
+            <div style="margin-top: 0%">
+                <label>Prix total Buisness :</label>
+                <a>
+                    {% if flies[0][2] != 0  %}
+                        {{ flies[0][2]+flies[1][2] }} €
+                    {% else %}
+                        Indisponible
+                    {% endif %}
+                </a>
+            </div>
+            <div style="margin-top: 0%">
+                <label>Prix total Economique :</label>
+                <a>
+                    {% if flies[0][3] != 0  %}
+                        {{ flies[0][3]+flies[1][3] }} €
+                    {% else %}
+                        Indisponible
+                    {% endif %}
+                </a>
+            </div>
+        </div>
+        <div>
+            {{ flies[0][0].getHourStart() | date("d/m/Y H:i") }}
+            <i class="fas fa-arrow-right"></i>
+            {{ flies[1][0].getHourEnd() | date("d/m/Y H:i") }}
+        </div>
+
+        {% for fly in flies %}
+
+            <div class="card list-group-item list-group-item-action"  style="border-width:1px; border-style:solid; border-color:black; padding: 1%; overflow: auto">
+                <i class="fas fa-plane-departure"> {{ fly[0].getTripUsed().airportStart.getLibelle() }} </i>
+                <i class="fas fa-arrow-right"></i>
+                <i class="fas fa-plane-arrival"> {{ fly[0].getTripUsed().airportEnd.getLibelle() }} </i>
+
+                <div id="price" style="float: right; ">
+                    <div style="margin-top: 0%">
+                        <label>Premium :</label>
+                        <a>
+                            {% if fly[1] != 0  %}
+                                {{ fly[1] }}
+                            {% else %}
+                                Indisponible
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div style="margin-top: 0%">
+                        <label>Buisness : </label>
+                        <a>
+                            {% if fly[2] != 0  %}
+                                {{ fly[2] }}
+                            {% else %}
+                                Indisponible
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div style="margin-top: 0%">
+                        <label>Economique : </label>
+                        <a>
+                            {% if fly[3] != 0  %}
+                                {{ fly[3] }}
+                            {% else %}
+                                Indisponible
+                            {% endif %}
+                        </a>
+                    </div>
+
+                </div>
+
+                <div>
+                    {{ fly[0].getHourStart() | date("d/m/Y H:i") }}
+                    <i class="fas fa-arrow-right"></i>
+                    {{ fly[0].getHourEnd() | date("d/m/Y H:i") }}
+                </div>
+            </div>
+
+        {% endfor %}
+
+        <div style="margin-top: 1%">
+            {{ form_start(formulaire) }}
+            {{ form_row(formulaire.type) }}
+            <br>
+            {{ form_widget(formulaire) }}
+            {{ form_end(formulaire) }}
+        </div>
+
+    {% endif %}
+
+{% endblock %}

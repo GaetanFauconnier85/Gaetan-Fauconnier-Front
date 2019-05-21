@@ -1,0 +1,10 @@
+body{
+    background-image: url(../picture/d.jpg);
+    background-repeat: no-repeat;
+    background-size: cover ;
+}
+
+.oui{
+    margin-bottom: 20%;
+    margin-top: 20%;
+}
